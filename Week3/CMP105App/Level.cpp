@@ -52,6 +52,27 @@ void Level::handleInput(float dt)
 	{
 		speedx = 0;
 	}
+
+	if (input->isKeyDown(sf::Keyboard::Add)) // Adding speed
+	{
+		speedrx = speedrx + 25.f;
+		speedry = speedry + 10.f;
+		std::cout << "The new speeds are: \n";
+		std::cout << "Speed X: " << speedrx << "\n";
+		std::cout << "Speed Y: " << speedry << "\n";
+	}
+
+	if (input->isKeyDown(sf::Keyboard::Subtract)) // Adding speed
+	{
+		speedrx = speedrx - 25.f;
+		speedry = speedry - 10.f;
+		std::cout << "The new speeds are: \n";
+		std::cout << "Speed X: " << speedrx << "\n";
+		std::cout << "Speed Y: " << speedry << "\n";
+	}
+
+	tempx = speedrx;
+	tempy = speedry;
 }
 
 // Update game objects
@@ -92,30 +113,36 @@ void Level::update(float dt)
 		speedy = 200.f;
 	}
 
+	rectrsizex = size.x - rectrsize.x;
+	rectrsizey = size.y - rectrsize.y;
+
 	rect.move(speedx * dt, speedy * dt);
 	rectr.move(speedrx * dt, speedry * dt);
-	if (rectrpos.x >= size.x - rectrsize.x)
+
+	if (rectrpos.x > size.x - rectrsize.x)
 	{
-		speedrx = -200.f;
+		rectr.setPosition(rectrsizex, rectrpos.y);
+		speedrx = -tempx;
 	}
 
-	if (rectrpos.x <= 0)
+	if (rectrpos.x < 0)
 	{
-		speedrx = 200.f;
+		rectr.setPosition(0, rectrpos.y);
+		speedrx = -tempx;
 	}
 
-	if (rectrpos.y >= size.y - rectrsize.y)
+	if (rectrpos.y > size.y - rectrsize.y)
 	{
-		speedry = -100.f;
-
+		rectr.setPosition(rectrpos.x, rectrsizey);
+		speedry = -tempy;
 	}
 
-	if (rectrpos.y <= 0)
+	if (rectrpos.y < 0)
 	{
-		speedry = 100.f;
+		rectr.setPosition(rectrpos.x, 0);
+		speedry = -tempy;
 	}
 	
-	rectr.move(speedrx * dt, speedry * dt);
 }
 
 // Render level

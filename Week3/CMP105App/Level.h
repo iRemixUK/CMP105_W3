@@ -31,5 +31,8 @@ private:
 	float speedy;
 	float speedrx;
 	float speedry;
-	
+	float tempx;
+	float tempy;
+	float rectrsizex;
+	float rectrsizey;
 };
