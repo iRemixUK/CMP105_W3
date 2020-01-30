@@ -25,6 +25,7 @@ private:
 	Input* input;
 
 	//Moving rectangle
-	sf::RectangleShape rectr;
+	sf::RectangleShape rect;
 	float speed;
+	
 };
