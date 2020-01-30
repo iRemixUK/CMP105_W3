@@ -26,6 +26,7 @@ private:
 
 	//Moving rectangle
 	sf::RectangleShape rect;
-	float speed;
+	float speedx;
+	float speedy;
 	
 };

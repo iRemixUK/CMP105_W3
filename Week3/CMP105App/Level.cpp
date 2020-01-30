@@ -10,11 +10,6 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	rect.setSize(sf::Vector2f(50, 25));
 	rect.setPosition(100, 100);
 	rect.setFillColor(sf::Color::Red);
-
-	speed = 200.f;
-	
-
-	
 }
 
 Level::~Level()
@@ -25,25 +20,67 @@ Level::~Level()
 // handle user input
 void Level::handleInput(float dt)
 {
+	if (input->isKeyDown(sf::Keyboard::Up)) // Up
+	{
+		speedy = -200.f;
+	}
+	else if (input->isKeyDown(sf::Keyboard::Down)) // Down
+	{
+		speedy = 200.f;
+	}
+	else
+	{
+		speedy = 0;
+	}
+
+	if (input->isKeyDown(sf::Keyboard::Left)) // Left
+	{
+		speedx = -200.f;
+	}
+	else if (input->isKeyDown(sf::Keyboard::Right)) // Right
+	{
+		speedx = 200.f;
+	}
+	else
+	{
+		speedx = 0;
+	}
 }
 
 // Update game objects
 void Level::update(float dt)
 {
 	//update/move circle
-	rect.move(speed * dt, 0);
+	
 	sf::Vector2f rectpos = rect.getPosition();
-	std::cout << rectpos.x << "\n";
 	sf::Vector2u size = window->getSize();
-	std::cout << size.x << "\n";
+	
 	if (rectpos.x >= size.x)
 	{
-		speed = -200.f;
+		speedx = 0;
+		speedx = -200.f;
 	}
+
 	if (rectpos.x <= 0)
 	{
-		speed = 200.f;
+		speedx = 0;
+		speedx = 200.f;
 	}
+
+	if (rectpos.y >= size.y)
+	{
+		speedy = 0;
+		speedy = -200.f;
+
+	}
+
+	if (rectpos.y <= 0)
+	{
+		speedy = 0;
+		speedy = 200.f;
+	}
+
+	rect.move(speedx * dt, speedy * dt);
 }
 
 // Render level
