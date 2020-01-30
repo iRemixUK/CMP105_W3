@@ -54,8 +54,9 @@ void Level::update(float dt)
 	
 	sf::Vector2f rectpos = rect.getPosition();
 	sf::Vector2u size = window->getSize();
-	
-	if (rectpos.x >= size.x)
+	sf::Vector2f rectsize = rect.getSize();
+
+	if (rectpos.x >= size.x - rectsize.x)
 	{
 		speedx = 0;
 		speedx = -200.f;
@@ -67,7 +68,7 @@ void Level::update(float dt)
 		speedx = 200.f;
 	}
 
-	if (rectpos.y >= size.y)
+	if (rectpos.y >= size.y - rectsize.y)
 	{
 		speedy = 0;
 		speedy = -200.f;
