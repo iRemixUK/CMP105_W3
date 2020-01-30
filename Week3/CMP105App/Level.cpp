@@ -11,7 +11,7 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	rect.setPosition(100, 100);
 	rect.setFillColor(sf::Color::Red);
 
-	speed = -200.f;
+	speed = 200.f;
 	
 
 	
@@ -33,10 +33,16 @@ void Level::update(float dt)
 	//update/move circle
 	rect.move(speed * dt, 0);
 	sf::Vector2f rectpos = rect.getPosition();
+	std::cout << rectpos.x << "\n";
 	sf::Vector2u size = window->getSize();
-	if (rectpos.x == 675 || rectpos.x == 0)
+	std::cout << size.x << "\n";
+	if (rectpos.x >= size.x)
 	{
 		speed = -200.f;
+	}
+	if (rectpos.x <= 0)
+	{
+		speed = 200.f;
 	}
 }
 
